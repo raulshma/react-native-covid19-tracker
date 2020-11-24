@@ -10,6 +10,10 @@ target 'covid19tracker' do
 
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
+  pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
+
+  pod 'react-native-safe-area-context', :path => '../node_modules/react-native-safe-area-context'
+
   target 'covid19trackerTests' do
     inherit! :complete
     # Pods for testing

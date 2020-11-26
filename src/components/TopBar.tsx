@@ -3,11 +3,14 @@ import { StyleSheet, Text, View } from 'react-native';
 import { IconButton } from 'react-native-paper';
 
 export const TOPBAR_HEIGHT = 90;
+interface PROPS {
+  nav: any;
+}
 
-const TopBar: React.FC = () => {
+const TopBar: React.FC<PROPS> = ({ nav }) => {
   return (
     <View style={styles.view}>
-      <IconButton icon="menu" onPress={() => console.log('settings pressed')} />
+      <IconButton icon="menu" onPress={() => nav.openDrawer()} />
       <Text style={styles.title}>Covid 19 Tracker</Text>
     </View>
   );

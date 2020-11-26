@@ -1,13 +1,13 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { Card, IconButton } from 'react-native-paper';
+import { Card, IconButton, Surface, TouchableRipple } from 'react-native-paper';
 import { Dimensions } from 'react-native';
 
 const windowWidth = Dimensions.get('window').width;
 
 interface Props {
   icon: string;
-  number: string | number;
+  number: string | number | undefined;
   type: string;
 }
 
@@ -19,22 +19,20 @@ const InfoCard: React.FC<Props> = ({ icon, number, type }) => {
       ? '#21CF55'
       : '#0E3360';
   return (
-    <Card style={styles.card}>
-      <View style={styles.view}>
-        <IconButton
-          icon={icon}
-          size={26}
-          color={color}
-          onPress={() => console.log('settings pressed')}
-        />
-        <Text style={{ color, fontFamily: 'Montserrat-Bold', fontSize: 18 }}>
-          {number}
-        </Text>
-        <Text style={{ color, fontFamily: 'Montserrat-Medium', fontSize: 12 }}>
-          {type}
-        </Text>
-      </View>
-    </Card>
+    <Surface style={styles.card}>
+      <TouchableRipple onPress={() => null} rippleColor="rgba(0, 0, 0, .05)">
+        <View style={styles.view}>
+          <IconButton icon={icon} size={26} color={color} />
+          <Text style={{ color, fontFamily: 'Montserrat-Bold', fontSize: 18 }}>
+            {number}
+          </Text>
+          <Text
+            style={{ color, fontFamily: 'Montserrat-Medium', fontSize: 12 }}>
+            {type}
+          </Text>
+        </View>
+      </TouchableRipple>
+    </Surface>
   );
 };
 
@@ -43,11 +41,14 @@ const styles = StyleSheet.create({
     width: windowWidth / 3 - 25,
     height: 130,
     backgroundColor: '#F5F5F5',
+    borderRadius: (windowWidth / 3 - 25) % 18,
+    elevation: 1,
   },
   view: {
     alignItems: 'center',
     justifyContent: 'center',
-    paddingTop: 10,
+    paddingBottom: 10,
+    height: '100%',
   },
 });
 

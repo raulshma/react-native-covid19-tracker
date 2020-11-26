@@ -1,18 +1,28 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import numeral from 'numeral';
 
 import InfoCard from './InfoCard';
+import GlobalData from '../shared/interface';
 
-export default function Info() {
+export default function Info(props: { data: GlobalData | undefined }) {
   return (
     <View style={styles.view}>
       <InfoCard
         icon="check-circle-outline"
-        number={'122,088'}
+        number={numeral(props.data?.cases).format('0,0')}
         type="Confirmed"
       />
-      <InfoCard icon="bandage" number={'13,088'} type="Recovered" />
-      <InfoCard icon="death-star" number={'2,088'} type="Deceased" />
+      <InfoCard
+        icon="bandage"
+        number={numeral(props.data?.recovered).format('0,0')}
+        type="Recovered"
+      />
+      <InfoCard
+        icon="death-star"
+        number={numeral(props.data?.deaths).format('0,0')}
+        type="Deceased"
+      />
     </View>
   );
 }

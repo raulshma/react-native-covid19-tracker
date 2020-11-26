@@ -1,8 +1,17 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { IconButton } from 'react-native-paper';
+import date from 'date-and-time';
 
-export default function InfoHeader() {
+import GlobalData from '../shared/interface';
+
+export default function InfoHeader(props: {
+  data: GlobalData | undefined;
+  refresh: Function;
+}) {
+  const refreshData = () => {
+    props.refresh();
+  };
   return (
     <View style={styles.view}>
       <View
@@ -10,13 +19,15 @@ export default function InfoHeader() {
           alignItems: 'flex-start',
         }}>
         <Text style={styles.updateText}>Transmission Update</Text>
-        <Text style={styles.date}>Latest Update: 25 Nov 20</Text>
+        <Text style={styles.date}>
+          Latest Update:{' '}
+          {props.data
+            ? date.format(new Date(props.data?.updated), 'MMM, DD hh:mm A')
+            : '-'}
+        </Text>
       </View>
       <View>
-        <IconButton
-          icon="refresh"
-          onPress={() => console.log('settings pressed')}
-        />
+        <IconButton icon="refresh" onPress={refreshData} />
       </View>
     </View>
   );

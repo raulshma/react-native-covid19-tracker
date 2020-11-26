@@ -11,7 +11,7 @@ export default function TrendHeader() {
           letterSpacing: 0.4,
           color: 'rgba(14, 51, 96, 255)',
         }}>
-        Spread Trends
+        Search Country Data
       </Text>
     </View>
   );

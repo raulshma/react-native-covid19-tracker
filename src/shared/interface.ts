@@ -21,3 +21,6 @@ export default interface GlobalData {
   criticalPerOneMillion: number;
   affectedCountries: number;
 }
+export interface SEARCH_ITEM {
+  name: string;
+}

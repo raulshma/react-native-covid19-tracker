@@ -38,10 +38,10 @@ const InfoCard: React.FC<Props> = ({ icon, number, type }) => {
 
 const styles = StyleSheet.create({
   card: {
-    width: windowWidth / 3 - 25,
+    width: windowWidth / 3 - 20,
     height: 130,
     backgroundColor: '#F5F5F5',
-    borderRadius: (windowWidth / 3 - 25) % 18,
+    borderRadius: (windowWidth / 3 - 25) % 10,
     elevation: 1,
   },
   view: {

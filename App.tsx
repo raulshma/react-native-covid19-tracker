@@ -2,6 +2,7 @@ import React from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
+import SplashScreen from 'react-native-splash-screen';
 import {
   DefaultTheme,
   Provider as PaperProvider,
@@ -71,6 +72,9 @@ const Home = ({ navigation }: any) => {
 const Drawer = createDrawerNavigator();
 
 export default function App() {
+  React.useEffect(() => {
+    SplashScreen.hide();
+  }, []);
   return (
     <PaperProvider theme={theme}>
       <NavigationContainer>

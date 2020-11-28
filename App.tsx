@@ -44,13 +44,9 @@ const fontConfig: {
   },
 };
 
-const theme = {
+export const theme = {
   ...DefaultTheme,
-  colors: {
-    ...DefaultTheme.colors,
-    primary: '#fff',
-    accent: '#fff',
-  },
+  roundness: 2,
   fonts: configureFonts(fontConfig),
 };
 

@@ -1,7 +1,8 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { Card, IconButton, Surface, TouchableRipple } from 'react-native-paper';
+import { IconButton, Surface, TouchableRipple } from 'react-native-paper';
 import { Dimensions } from 'react-native';
+import { APP_COLORS } from '../shared/constants';
 
 const windowWidth = Dimensions.get('window').width;
 
@@ -14,10 +15,10 @@ interface Props {
 const InfoCard: React.FC<Props> = ({ icon, number, type }) => {
   const color =
     type === 'Confirmed'
-      ? '#FF5050'
+      ? APP_COLORS.CONFIRMED
       : type === 'Recovered'
-      ? '#21CF55'
-      : '#0E3360';
+      ? APP_COLORS.RECOVERED
+      : APP_COLORS.DECEASED;
   return (
     <Surface style={styles.card}>
       <TouchableRipple onPress={() => null} rippleColor="rgba(0, 0, 0, .05)">
@@ -40,9 +41,8 @@ const styles = StyleSheet.create({
   card: {
     width: windowWidth / 3 - 20,
     height: 130,
-    backgroundColor: '#F5F5F5',
-    borderRadius: (windowWidth / 3 - 25) % 10,
-    elevation: 1,
+    borderRadius: (windowWidth / 3 - 25) % 12,
+    elevation: 3,
   },
   view: {
     alignItems: 'center',

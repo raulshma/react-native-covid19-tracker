@@ -1,14 +1,21 @@
 import React, { useEffect } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { Chip, Searchbar } from 'react-native-paper';
-import { SEARCH_ITEM } from '../shared/interface';
+import { SEARCH_ITEM, CountryData } from '../shared/interface';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import useSWR from 'swr';
+
+import { COUNTRY_URL } from '../shared/constants';
+import CountryInfo from './CountryInfo';
 
 const LOCAL_KEY: string = 'search-items';
 
 export default function Search() {
+  const [shouldFetch, setShouldFetch] = React.useState<boolean>();
+  const [countryUrl, setCountryUrl] = React.useState<string>('');
   const [searchedItems, setSearchedItems] = React.useState<SEARCH_ITEM[]>([]);
   const [searchQuery, setSearchQuery] = React.useState<string>('');
+  const { data } = useSWR<CountryData>(shouldFetch ? countryUrl : null);
 
   //TODO : Refactor
   const chipPressed = async (index: number) => {
@@ -19,14 +26,31 @@ export default function Search() {
     });
   };
 
-  const onSearch = async () => {
-    await storeItemToLocalStorage(searchQuery);
-    setSearchedItems((old_items: SEARCH_ITEM[]) => {
-      const new_item: SEARCH_ITEM = {
-        name: searchQuery,
-      };
-      return [...old_items, new_item];
-    });
+  const onSearch = async (idx: number = -1) => {
+    let searchText: string;
+    if (Number(idx) !== -1) {
+      searchText = searchedItems[idx].name;
+    } else if (searchQuery === '') {
+      return;
+    } else {
+      searchText = searchQuery;
+    }
+    setCountryUrl(COUNTRY_URL(searchText));
+    setShouldFetch(true);
+    if (
+      idx === -1 &&
+      searchedItems.filter(
+        (e) => e.name.toLowerCase() === searchQuery.toLowerCase(),
+      ).length <= 0
+    ) {
+      await storeItemToLocalStorage(searchText);
+      setSearchedItems((old_items: SEARCH_ITEM[]) => {
+        const new_item: SEARCH_ITEM = {
+          name: searchText,
+        };
+        return [...old_items, new_item];
+      });
+    }
     setSearchQuery('');
   };
 
@@ -71,8 +95,9 @@ export default function Search() {
     <>
       <View style={styles.view}>
         <Searchbar
-          placeholder="Search"
-          onIconPress={onSearch}
+          placeholder="Name, iso2, iso3, ID code"
+          onIconPress={() => onSearch()}
+          onSubmitEditing={() => onSearch()}
           onChangeText={setSearchQuery}
           value={searchQuery}
         />
@@ -85,12 +110,14 @@ export default function Search() {
             <Chip
               closeIconAccessibilityLabel={'Close'}
               onClose={() => chipPressed(idx)}
+              onPress={() => onSearch(idx)}
               key={idx}>
               {item.name}
             </Chip>
           );
         })}
       </ScrollView>
+      {data && <CountryInfo data={data} />}
     </>
   );
 }

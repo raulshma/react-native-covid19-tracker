@@ -20,6 +20,7 @@ import GLOBALDATA_URL from './src/shared/constants';
 import GlobalData from './src/shared/interface';
 import About from './src/components/About';
 import Search from './src/components/Search';
+import HistoryChart from './src/components/HistoryChart';
 
 const fontConfig: {
   ['default']: Fonts;
@@ -55,8 +56,8 @@ const Home = ({ navigation }: any) => {
   return (
     <>
       <TopBar nav={navigation} />
-      <BannerCard />
       <ScrollView style={styles.scroll}>
+        <BannerCard />
         <InfoHeader data={data} refresh={() => mutate(GLOBALDATA_URL)} />
         <Info data={data} />
         <TrendHeader />
@@ -76,7 +77,8 @@ export default function App() {
       <NavigationContainer>
         <Drawer.Navigator initialRouteName="Home">
           <Drawer.Screen name="Home" component={Home} />
-          <Drawer.Screen name="Info" component={About} />
+          <Drawer.Screen name="Chart" component={HistoryChart} />
+          <Drawer.Screen name="About" component={About} />
         </Drawer.Navigator>
       </NavigationContainer>
     </PaperProvider>
@@ -84,6 +86,6 @@ export default function App() {
 }
 const styles = StyleSheet.create({
   scroll: {
-    height: '100%',
+    // height: '100%',
   },
 });

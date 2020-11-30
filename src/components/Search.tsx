@@ -16,7 +16,6 @@ export default function Search() {
   const [searchedItems, setSearchedItems] = React.useState<SEARCH_ITEM[]>([]);
   const [searchQuery, setSearchQuery] = React.useState<string>('');
   const { data } = useSWR<CountryData>(shouldFetch ? countryUrl : null);
-
   //TODO : Refactor
   const chipPressed = async (index: number) => {
     await removeItemFromLocalStorage(index);

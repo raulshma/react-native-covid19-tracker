@@ -15,7 +15,9 @@ export default function Search() {
   const [countryUrl, setCountryUrl] = React.useState<string>('');
   const [searchedItems, setSearchedItems] = React.useState<SEARCH_ITEM[]>([]);
   const [searchQuery, setSearchQuery] = React.useState<string>('');
-  const { data } = useSWR<CountryData>(shouldFetch ? countryUrl : null);
+  const { data } = useSWR<CountryData>(shouldFetch ? countryUrl : null, {
+    dedupingInterval: 10000,
+  });
   //TODO : Refactor
   const chipPressed = async (index: number) => {
     await removeItemFromLocalStorage(index);
@@ -110,6 +112,7 @@ export default function Search() {
               closeIconAccessibilityLabel={'Close'}
               onClose={() => chipPressed(idx)}
               onPress={() => onSearch(idx)}
+              style={{ marginRight: 10 }}
               key={idx}>
               {item.name}
             </Chip>

@@ -58,7 +58,7 @@ const CountryInfo: React.FC<PROPS> = ({ data }) => {
         />
         <Card.Content>
           <DataTable>
-            <DataTable.Header>
+            <DataTable.Header style={{ paddingHorizontal: 0 }}>
               <DataTable.Title style={styles.content}>
                 Confirmed
               </DataTable.Title>
@@ -68,7 +68,7 @@ const CountryInfo: React.FC<PROPS> = ({ data }) => {
               </DataTable.Title>
               <DataTable.Title style={styles.content}>Deceased</DataTable.Title>
             </DataTable.Header>
-            <DataTable.Row>
+            <DataTable.Row style={{ paddingHorizontal: 0 }}>
               <DataTable.Cell style={styles.content}>
                 <Text style={styles.confirmed}>{fNum(data.cases)}</Text>
               </DataTable.Cell>

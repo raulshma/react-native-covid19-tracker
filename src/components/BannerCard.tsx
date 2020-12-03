@@ -1,24 +1,34 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, ToastAndroid, View } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Card } from 'react-native-paper';
 
+function commingSoon() {
+  ToastAndroid.showWithGravity(
+    'Comming Soon',
+    ToastAndroid.SHORT,
+    ToastAndroid.BOTTOM,
+  );
+}
 export default function BannerCard() {
   return (
-    <View style={styles.view}>
-      <Card style={styles.card}>
-        <Card.Content>
-          <View style={styles.content}>
-            <Text style={[styles.text, styles.heading]}>
-              Take the Self Checkup!
-            </Text>
-            <Text style={styles.text}>
-              Contains several checklist question to check your physical
-              condition.
-            </Text>
-          </View>
-        </Card.Content>
-      </Card>
-    </View>
+    <TouchableOpacity onPress={commingSoon} activeOpacity={1}>
+      <View style={styles.view}>
+        <Card style={styles.card}>
+          <Card.Content>
+            <View style={styles.content}>
+              <Text style={[styles.text, styles.heading]}>
+                Take the Self Checkup!
+              </Text>
+              <Text style={styles.text}>
+                Contains several checklist question to check your physical
+                condition.
+              </Text>
+            </View>
+          </Card.Content>
+        </Card>
+      </View>
+    </TouchableOpacity>
   );
 }
 

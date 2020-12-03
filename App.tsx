@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
@@ -20,7 +20,10 @@ import GLOBALDATA_URL from './src/shared/constants';
 import GlobalData from './src/shared/interface';
 import About from './src/components/About';
 import Search from './src/components/Search';
-import HistoryChart from './src/components/HistoryChart';
+import Spinner from 'react-native-loading-spinner-overlay';
+const HistoryDetails = React.lazy(
+  () => import('./src/components/HistoryDetails'),
+);
 
 const fontConfig: {
   ['default']: Fonts;
@@ -75,11 +78,20 @@ export default function App() {
   return (
     <PaperProvider theme={theme}>
       <NavigationContainer>
-        <Drawer.Navigator initialRouteName="Home">
-          <Drawer.Screen name="Home" component={Home} />
-          <Drawer.Screen name="Chart" component={HistoryChart} />
-          <Drawer.Screen name="About" component={About} />
-        </Drawer.Navigator>
+        <Suspense
+          fallback={
+            <Spinner
+              visible={true}
+              textContent={'Loading...'}
+              textStyle={{ color: '#FFF' }}
+            />
+          }>
+          <Drawer.Navigator initialRouteName="Home">
+            <Drawer.Screen name="Home" component={Home} />
+            <Drawer.Screen name="History" component={HistoryDetails} />
+            <Drawer.Screen name="About" component={About} />
+          </Drawer.Navigator>
+        </Suspense>
       </NavigationContainer>
     </PaperProvider>
   );

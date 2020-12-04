@@ -5,7 +5,7 @@ import { Appbar, DataTable } from 'react-native-paper';
 import useSWR from 'swr';
 import date from 'date-and-time';
 
-function Header(navigation: any) {
+export function NavigationHeader(navigation: any) {
   return (
     <Appbar.Header style={styles.header}>
       <Appbar.BackAction
@@ -14,11 +14,9 @@ function Header(navigation: any) {
     </Appbar.Header>
   );
 }
-const itemsPerPage = 10;
+const itemsPerPage = 6;
 export default function HistoryDetails({ navigation }: any) {
-  const { data } = useSWR('https://func.raulshma.xyz/api/c19history', {
-    dedupingInterval: 60000,
-  });
+  const { data } = useSWR('https://func.raulshma.xyz/api/c19history');
   const [cases, setCases] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const from = page * itemsPerPage;
@@ -31,11 +29,11 @@ export default function HistoryDetails({ navigation }: any) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, data]);
   if (!data) {
-    return <SafeAreaView>{Header(navigation)}</SafeAreaView>;
+    return <SafeAreaView>{NavigationHeader(navigation)}</SafeAreaView>;
   }
   return (
     <SafeAreaView>
-      {Header(navigation)}
+      {NavigationHeader(navigation)}
       <ScrollView>
         <DataTable>
           <DataTable.Header>

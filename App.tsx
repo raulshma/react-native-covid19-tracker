@@ -21,6 +21,7 @@ import GlobalData from './src/shared/interface';
 import About from './src/components/About';
 import Search from './src/components/Search';
 import Spinner from 'react-native-loading-spinner-overlay';
+const VaccineInfo = React.lazy(() => import('./src/components/VaccineInfo'));
 const HistoryDetails = React.lazy(
   () => import('./src/components/HistoryDetails'),
 );
@@ -89,6 +90,7 @@ export default function App() {
           <Drawer.Navigator initialRouteName="Home">
             <Drawer.Screen name="Home" component={Home} />
             <Drawer.Screen name="History" component={HistoryDetails} />
+            <Drawer.Screen name="Vaccine Info" component={VaccineInfo} />
             <Drawer.Screen name="About" component={About} />
           </Drawer.Navigator>
         </Suspense>

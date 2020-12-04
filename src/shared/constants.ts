@@ -7,6 +7,7 @@ export const APP_COLORS = {
   RECOVERED: '#21CF55',
   DECEASED: '#0E3360',
   ACTIVE: '#378FB3',
+  TEXT_BLACK: 'rgba(0,0,0,0.87)',
 };
 
 export const MONTHS: any = {

@@ -56,6 +56,33 @@ export interface CountryInfo {
   flag: string;
 }
 
+export interface HistoricData {
+  cases: { date: string; count: number }[];
+  deaths: { date: string; count: number }[];
+  recovered: { date: string; count: number }[];
+}
+
+export interface VaccineData {
+  source: string;
+  totalCandidates: string;
+  phases: Phase[];
+  data: Datum[];
+}
+
+export interface Datum {
+  candidate: string;
+  mechanism: string;
+  sponsors: string[];
+  details: string;
+  trialPhase: string;
+  institutions: string[];
+}
+
+export interface Phase {
+  phase: string;
+  candidates: string;
+}
+
 export interface SEARCH_ITEM {
   name: string;
 }

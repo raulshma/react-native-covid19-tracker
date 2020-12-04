@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import {
   Avatar,
   Caption,
@@ -16,6 +16,21 @@ import { CountryData } from '../shared/interface';
 import { APP_COLORS } from '../shared/constants';
 import { fNum } from '../utils/functions';
 
+const zoomOut = {
+  0: {
+    opacity: 1,
+    scale: 0.99,
+  },
+  0.5: {
+    opacity: 0.7,
+    scale: 1.01,
+  },
+  1: {
+    opacity: 1,
+    scale: 1,
+  },
+};
+
 const CountryInfoImage = (image: string) => {
   if (!image) {
     return <></>;
@@ -24,123 +39,122 @@ const CountryInfoImage = (image: string) => {
     <Avatar.Image size={40} source={{ uri: image }} style={{ elevation: 2 }} />
   );
 };
-
 interface PROPS {
   data: CountryData;
 }
 const CountryInfo: React.FC<PROPS> = ({ data }) => {
+  if (!data.countryInfo) {
+    return <Text style={styles.notFound}>404</Text>;
+  }
+
   return (
-    <Animatable.View animation={'fadeIn'}>
-      <ScrollView contentContainerStyle={styles.country}>
-        <Card>
-          <Card.Title
-            title={data.country}
-            subtitle={date.format(new Date(data?.updated), 'MMM, DD hh:mm A')}
-            right={() => CountryInfoImage(data.countryInfo.flag)}
-            rightStyle={{ paddingRight: 10 }}
-          />
-          <Card.Content>
-            <DataTable>
-              <DataTable.Header>
-                <DataTable.Title style={styles.content}>
-                  Confirmed
-                </DataTable.Title>
-                <DataTable.Title style={styles.content}>Active</DataTable.Title>
-                <DataTable.Title style={styles.content}>
-                  Recovered
-                </DataTable.Title>
-                <DataTable.Title style={styles.content}>
-                  Deceased
-                </DataTable.Title>
-              </DataTable.Header>
-              <DataTable.Row>
-                <DataTable.Cell style={styles.content}>
-                  <Text style={styles.confirmed}>{fNum(data.cases)}</Text>
-                </DataTable.Cell>
-                <DataTable.Cell style={styles.content}>
-                  <Text style={styles.active}>{fNum(data.active)}</Text>
-                </DataTable.Cell>
-                <DataTable.Cell style={styles.content}>
-                  <Text style={styles.recovered}>{fNum(data.deaths)}</Text>
-                </DataTable.Cell>
-                <DataTable.Cell style={styles.content}>
-                  <Text style={styles.deceased}>{fNum(data.recovered)}</Text>
-                </DataTable.Cell>
-              </DataTable.Row>
-            </DataTable>
-            <Divider />
-            <View style={styles.details}>
-              <Subheading>Information</Subheading>
-              <View style={styles.innerDetails}>
-                <Caption>Continent</Caption>
-                <Caption>{data.continent}</Caption>
-              </View>
-              <View style={styles.innerDetails}>
-                <Caption>Population</Caption>
-                <Caption>{fNum(data.population)}</Caption>
-              </View>
-              <View style={styles.innerDetails}>
-                <Caption>Tests</Caption>
-                <Caption>{fNum(data.tests)}</Caption>
-              </View>
-              <Divider />
-              <Subheading>Today</Subheading>
-              <View style={styles.innerDetails}>
-                <Caption>Cases</Caption>
-                <Caption>+{fNum(data.todayCases)}</Caption>
-              </View>
-              <View style={styles.innerDetails}>
-                <Caption>Recovered</Caption>
-                <Caption>+{fNum(data.todayRecovered)}</Caption>
-              </View>
-              <View style={styles.innerDetails}>
-                <Caption>Deceased</Caption>
-                <Caption>+{fNum(data.todayDeaths)}</Caption>
-              </View>
-              <View style={styles.innerDetails}>
-                <Caption>Critical</Caption>
-                <Caption>{fNum(data.critical)}</Caption>
-              </View>
-              <Divider />
-              <Subheading>Per One Million</Subheading>
-              <View style={styles.innerDetails}>
-                <Caption>Cases</Caption>
-                <Caption>{fNum(data.casesPerOneMillion)}</Caption>
-              </View>
-              <View style={styles.innerDetails}>
-                <Caption>Active</Caption>
-                <Caption>{fNum(data.activePerOneMillion)}</Caption>
-              </View>
-              <View style={styles.innerDetails}>
-                <Caption>Recovered</Caption>
-                <Caption>{fNum(data.recoveredPerOneMillion)}</Caption>
-              </View>
-              <View style={styles.innerDetails}>
-                <Caption>Deceased</Caption>
-                <Caption>{fNum(data.deathsPerOneMillion)}</Caption>
-              </View>
-              <View style={styles.innerDetails}>
-                <Caption>Tests</Caption>
-                <Caption>{fNum(data.testsPerOneMillion)}</Caption>
-              </View>
-              <Divider />
-              <Subheading>One Per People</Subheading>
-              <View style={styles.innerDetails}>
-                <Caption>Case</Caption>
-                <Caption>{fNum(data.oneCasePerPeople)}</Caption>
-              </View>
-              <View style={styles.innerDetails}>
-                <Caption>Death</Caption>
-                <Caption>{fNum(data.oneDeathPerPeople)}</Caption>
-              </View>
-              <View style={styles.innerDetails}>
-                <Caption>Test</Caption>
-                <Caption>{fNum(data.oneTestPerPeople)}</Caption>
-              </View>
+    <Animatable.View animation={zoomOut} style={styles.country}>
+      <Card>
+        <Card.Title
+          title={data.country}
+          subtitle={date.format(new Date(data?.updated), 'MMM, DD hh:mm A')}
+          right={() => CountryInfoImage(data.countryInfo.flag)}
+          rightStyle={{ paddingRight: 10 }}
+        />
+        <Card.Content>
+          <DataTable>
+            <DataTable.Header style={{ paddingHorizontal: 0 }}>
+              <DataTable.Title style={styles.content}>
+                Confirmed
+              </DataTable.Title>
+              <DataTable.Title style={styles.content}>Active</DataTable.Title>
+              <DataTable.Title style={styles.content}>
+                Recovered
+              </DataTable.Title>
+              <DataTable.Title style={styles.content}>Deceased</DataTable.Title>
+            </DataTable.Header>
+            <DataTable.Row style={{ paddingHorizontal: 0 }}>
+              <DataTable.Cell style={styles.content}>
+                <Text style={styles.confirmed}>{fNum(data.cases)}</Text>
+              </DataTable.Cell>
+              <DataTable.Cell style={styles.content}>
+                <Text style={styles.active}>{fNum(data.active)}</Text>
+              </DataTable.Cell>
+              <DataTable.Cell style={styles.content}>
+                <Text style={styles.recovered}>{fNum(data.recovered)}</Text>
+              </DataTable.Cell>
+              <DataTable.Cell style={styles.content}>
+                <Text style={styles.deceased}>{fNum(data.deaths)}</Text>
+              </DataTable.Cell>
+            </DataTable.Row>
+          </DataTable>
+          <Divider />
+          <View style={styles.details}>
+            <Subheading>Information</Subheading>
+            <View style={styles.innerDetails}>
+              <Caption>Continent</Caption>
+              <Caption>{data.continent}</Caption>
             </View>
-          </Card.Content>
-        </Card>
-      </ScrollView>
+            <View style={styles.innerDetails}>
+              <Caption>Population</Caption>
+              <Caption>{fNum(data.population)}</Caption>
+            </View>
+            <View style={styles.innerDetails}>
+              <Caption>Tests</Caption>
+              <Caption>{fNum(data.tests)}</Caption>
+            </View>
+            <Divider />
+            <Subheading>Today</Subheading>
+            <View style={styles.innerDetails}>
+              <Caption>Cases</Caption>
+              <Caption>+{fNum(data.todayCases)}</Caption>
+            </View>
+            <View style={styles.innerDetails}>
+              <Caption>Recovered</Caption>
+              <Caption>+{fNum(data.todayRecovered)}</Caption>
+            </View>
+            <View style={styles.innerDetails}>
+              <Caption>Deceased</Caption>
+              <Caption>+{fNum(data.todayDeaths)}</Caption>
+            </View>
+            <View style={styles.innerDetails}>
+              <Caption>Critical</Caption>
+              <Caption>{fNum(data.critical)}</Caption>
+            </View>
+            <Divider />
+            <Subheading>Per One Million</Subheading>
+            <View style={styles.innerDetails}>
+              <Caption>Cases</Caption>
+              <Caption>{fNum(data.casesPerOneMillion)}</Caption>
+            </View>
+            <View style={styles.innerDetails}>
+              <Caption>Active</Caption>
+              <Caption>{fNum(data.activePerOneMillion)}</Caption>
+            </View>
+            <View style={styles.innerDetails}>
+              <Caption>Recovered</Caption>
+              <Caption>{fNum(data.recoveredPerOneMillion)}</Caption>
+            </View>
+            <View style={styles.innerDetails}>
+              <Caption>Deceased</Caption>
+              <Caption>{fNum(data.deathsPerOneMillion)}</Caption>
+            </View>
+            <View style={styles.innerDetails}>
+              <Caption>Tests</Caption>
+              <Caption>{fNum(data.testsPerOneMillion)}</Caption>
+            </View>
+            <Divider />
+            <Subheading>One Per People</Subheading>
+            <View style={styles.innerDetails}>
+              <Caption>Case</Caption>
+              <Caption>{fNum(data.oneCasePerPeople)}</Caption>
+            </View>
+            <View style={styles.innerDetails}>
+              <Caption>Death</Caption>
+              <Caption>{fNum(data.oneDeathPerPeople)}</Caption>
+            </View>
+            <View style={styles.innerDetails}>
+              <Caption>Test</Caption>
+              <Caption>{fNum(data.oneTestPerPeople)}</Caption>
+            </View>
+          </View>
+        </Card.Content>
+      </Card>
     </Animatable.View>
   );
 };
@@ -172,6 +186,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginBottom: 5,
+  },
+  notFound: {
+    textAlign: 'center',
+    fontSize: 22,
+    color: APP_COLORS.CONFIRMED,
+    fontFamily: 'Montserrat-Bold',
   },
 });
 

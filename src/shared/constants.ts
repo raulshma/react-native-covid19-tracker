@@ -7,6 +7,8 @@ export const APP_COLORS = {
   RECOVERED: '#21CF55',
   DECEASED: '#0E3360',
   ACTIVE: '#378FB3',
+  TEXT_BLUE: '#279AF1',
+  TEXT_CHESNUT: '#A24936',
   TEXT_BLACK: 'rgba(0,0,0,0.87)',
 };
 

@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { IconButton, Surface, TouchableRipple } from 'react-native-paper';
 import { Dimensions } from 'react-native';
 import { APP_COLORS } from '../shared/constants';
+import FadeInWrapper from './FadeInWrapper';
 
 const windowWidth = Dimensions.get('window').width;
 
@@ -20,20 +21,31 @@ const InfoCard: React.FC<Props> = ({ icon, number, type }) => {
       ? APP_COLORS.RECOVERED
       : APP_COLORS.DECEASED;
   return (
-    <Surface style={styles.card}>
-      <TouchableRipple onPress={() => null} rippleColor="rgba(0, 0, 0, .05)">
-        <View style={styles.view}>
-          <IconButton icon={icon} size={26} color={color} />
-          <Text style={{ color, fontFamily: 'Montserrat-Bold', fontSize: 18 }}>
-            {number}
-          </Text>
-          <Text
-            style={{ color, fontFamily: 'Montserrat-Medium', fontSize: 12 }}>
-            {type}
-          </Text>
-        </View>
-      </TouchableRipple>
-    </Surface>
+    <FadeInWrapper
+      children={
+        <Surface style={styles.card}>
+          <TouchableRipple
+            onPress={() => null}
+            rippleColor="rgba(0, 0, 0, .05)">
+            <View style={styles.view}>
+              <IconButton icon={icon} size={26} color={color} />
+              <Text
+                style={{ color, fontFamily: 'Montserrat-Bold', fontSize: 18 }}>
+                {number}
+              </Text>
+              <Text
+                style={{
+                  color,
+                  fontFamily: 'Montserrat-Medium',
+                  fontSize: 12,
+                }}>
+                {type}
+              </Text>
+            </View>
+          </TouchableRipple>
+        </Surface>
+      }
+    />
   );
 };
 

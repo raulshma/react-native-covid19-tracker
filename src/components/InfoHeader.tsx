@@ -4,6 +4,7 @@ import { IconButton } from 'react-native-paper';
 import date from 'date-and-time';
 
 import GlobalData from '../shared/interface';
+import FadeInWrapper from './FadeInWrapper';
 
 export default function InfoHeader(props: {
   data: GlobalData | undefined;
@@ -13,23 +14,27 @@ export default function InfoHeader(props: {
     props.refresh();
   };
   return (
-    <View style={styles.view}>
-      <View
-        style={{
-          alignItems: 'flex-start',
-        }}>
-        <Text style={styles.updateText}>Transmission Update</Text>
-        <Text style={styles.date}>
-          Latest Update:{' '}
-          {props.data
-            ? date.format(new Date(props.data?.updated), 'MMM, DD hh:mm A')
-            : '-'}
-        </Text>
-      </View>
-      <View>
-        <IconButton icon="refresh" onPress={refreshData} />
-      </View>
-    </View>
+    <FadeInWrapper
+      children={
+        <View style={styles.view}>
+          <View
+            style={{
+              alignItems: 'flex-start',
+            }}>
+            <Text style={styles.updateText}>Transmission Update</Text>
+            <Text style={styles.date}>
+              Latest Update:{' '}
+              {props.data
+                ? date.format(new Date(props.data?.updated), 'MMM, DD hh:mm A')
+                : '-'}
+            </Text>
+          </View>
+          <View>
+            <IconButton icon="refresh" onPress={refreshData} />
+          </View>
+        </View>
+      }
+    />
   );
 }
 

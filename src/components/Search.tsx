@@ -7,6 +7,7 @@ import useSWR from 'swr';
 
 import { COUNTRY_URL } from '../shared/constants';
 import CountryInfo from './CountryInfo';
+import FadeInWrapper from './FadeInWrapper';
 
 const LOCAL_KEY: string = 'search-items';
 
@@ -94,15 +95,18 @@ export default function Search() {
 
   return (
     <>
-      <View style={styles.view}>
-        <Searchbar
-          placeholder="Name, iso2, iso3, ID code"
-          onIconPress={() => onSearch()}
-          onSubmitEditing={() => onSearch()}
-          onChangeText={setSearchQuery}
-          value={searchQuery}
-        />
-      </View>
+      <FadeInWrapper
+        styles={styles.view}
+        children={
+          <Searchbar
+            placeholder="Name, iso2, iso3, ID code"
+            onIconPress={() => onSearch()}
+            onSubmitEditing={() => onSearch()}
+            onChangeText={setSearchQuery}
+            value={searchQuery}
+          />
+        }
+      />
       <ScrollView
         horizontal={true}
         contentContainerStyle={{ ...styles.view, ...styles.searched }}>

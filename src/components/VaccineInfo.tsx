@@ -7,6 +7,7 @@ import {
   Headline,
   Paragraph,
   Subheading,
+  Surface,
   Title,
 } from 'react-native-paper';
 import useSWR from 'swr';
@@ -28,18 +29,22 @@ const Item = ({
   trialPhase,
   institutions,
 }: Datum) => (
-  <View style={styles.list}>
-    <Headline>{candidate}</Headline>
-    <Subheading>{trialPhase}</Subheading>
+  <Surface style={styles.list}>
+    <Headline style={{ color: APP_COLORS.DECEASED }}>{candidate}</Headline>
+    <Subheading style={{ color: APP_COLORS.TEXT_BLUE }}>
+      {trialPhase}
+    </Subheading>
     <Divider />
-    <Subheading>{mechanism}</Subheading>
+    <Subheading style={{ color: APP_COLORS.TEXT_CHESNUT }}>
+      {mechanism}
+    </Subheading>
     {sponsors.length && <Caption>Sponsors: {sponsors.join(', ')}</Caption>}
     {institutions.length && (
       <Caption>Institutions: {institutions.join(', ')}</Caption>
     )}
     <Divider />
     <Paragraph style={{ color: APP_COLORS.TEXT_BLACK }}>{details}</Paragraph>
-  </View>
+  </Surface>
 );
 const renderItem = (data: ItemInterface) => {
   return <Item {...data.item} />;
@@ -75,7 +80,7 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   list: {
-    paddingVertical: 22,
+    padding: 22,
   },
   titleHead: {
     flexDirection: 'row',

@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, ToastAndroid, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Card } from 'react-native-paper';
+import FadeInWrapper from './FadeInWrapper';
 
 function commingSoon() {
   ToastAndroid.showWithGravity(
@@ -12,23 +13,27 @@ function commingSoon() {
 }
 export default function BannerCard() {
   return (
-    <TouchableOpacity onPress={commingSoon} activeOpacity={1}>
-      <View style={styles.view}>
-        <Card style={styles.card}>
-          <Card.Content>
-            <View style={styles.content}>
-              <Text style={[styles.text, styles.heading]}>
-                Take the Self Checkup!
-              </Text>
-              <Text style={styles.text}>
-                Contains several checklist question to check your physical
-                condition.
-              </Text>
-            </View>
-          </Card.Content>
-        </Card>
-      </View>
-    </TouchableOpacity>
+    <FadeInWrapper
+      children={
+        <TouchableOpacity onPress={commingSoon} activeOpacity={1}>
+          <View style={styles.view}>
+            <Card style={styles.card}>
+              <Card.Content>
+                <View style={styles.content}>
+                  <Text style={[styles.text, styles.heading]}>
+                    Take the Self Checkup!
+                  </Text>
+                  <Text style={styles.text}>
+                    Contains several checklist question to check your physical
+                    condition.
+                  </Text>
+                </View>
+              </Card.Content>
+            </Card>
+          </View>
+        </TouchableOpacity>
+      }
+    />
   );
 }
 

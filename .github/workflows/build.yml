@@ -19,12 +19,9 @@ jobs:
       - name: Install npm dependencies
         run: |
           npm install
-      - name: Change Directory & Set Permissions
-        run: |
-          cd android && chmod +x ./gradlew
       - name: Build Android Release
         run: |
-          ./gradlew :app:assembleRelease
+          cd android && chmod +x ./gradlew && ./gradlew :app:assembleRelease
       - name: Upload Artifact
         uses: actions/upload-artifact@v1
         with:

@@ -15,6 +15,7 @@ export default function InfoHeader(props: {
   };
   return (
     <FadeInWrapper
+      delay={600}
       children={
         <View style={styles.view}>
           <View

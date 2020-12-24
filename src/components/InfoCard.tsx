@@ -11,9 +11,10 @@ interface Props {
   icon: string;
   number: string | number | undefined;
   type: string;
+  delay: number;
 }
 
-const InfoCard: React.FC<Props> = ({ icon, number, type }) => {
+const InfoCard: React.FC<Props> = ({ icon, number, type, delay }) => {
   const color =
     type === 'Confirmed'
       ? APP_COLORS.CONFIRMED
@@ -22,6 +23,7 @@ const InfoCard: React.FC<Props> = ({ icon, number, type }) => {
       : APP_COLORS.DECEASED;
   return (
     <FadeInWrapper
+      delay={delay}
       children={
         <Surface style={styles.card}>
           <TouchableRipple

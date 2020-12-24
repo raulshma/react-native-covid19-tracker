@@ -97,6 +97,7 @@ export default function Search() {
     <>
       <FadeInWrapper
         styles={styles.view}
+        delay={2300}
         children={
           <Searchbar
             placeholder="Name, iso2, iso3, ID code"

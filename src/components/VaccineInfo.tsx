@@ -55,7 +55,7 @@ export default function VaccineInfo({ navigation }: any) {
   );
   if (!data) return <>{NavigationHeader(navigation)}</>;
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ flex: 1 }}>
       {NavigationHeader(navigation)}
       <View style={styles.scrollView}>
         <View style={styles.titleHead}>
@@ -66,6 +66,9 @@ export default function VaccineInfo({ navigation }: any) {
         <Caption>Source: {data.source}</Caption>
         <Divider />
         <FlatList
+          bounces={true}
+          snapToEnd={true}
+          removeClippedSubviews={true}
           data={data.data}
           renderItem={renderItem}
           keyExtractor={(item, idx) => item.candidate + idx}
@@ -77,6 +80,7 @@ export default function VaccineInfo({ navigation }: any) {
 
 const styles = StyleSheet.create({
   scrollView: {
+    flex: 1,
     padding: 10,
   },
   list: {

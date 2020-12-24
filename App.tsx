@@ -89,7 +89,7 @@ export default function App() {
           }>
           <Drawer.Navigator initialRouteName="Home">
             <Drawer.Screen name="Home" component={Home} />
-            <Drawer.Screen name="History" component={HistoryDetails} />
+            {/* <Drawer.Screen name="History" component={HistoryDetails} /> */}
             <Drawer.Screen name="Vaccine Info" component={VaccineInfo} />
             <Drawer.Screen name="About" component={About} />
           </Drawer.Navigator>
